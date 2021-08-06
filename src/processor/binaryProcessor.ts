@@ -39,6 +39,7 @@ class Processor extends ProcessorBase {
         }
       );
 
+      console.log(instruction.assemblyName);
       // deno-lint-ignore no-explicit-any
       (this as any)[instruction.assemblyName](...parameters);
 

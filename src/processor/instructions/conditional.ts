@@ -5,43 +5,45 @@ export default function ConditionalProcessor<TProcessor extends Processor>(
   Base: TProcessor
 ) {
   return class ConditionalProcessor extends Base {
-    public jmp(address: uint16): void {
-      this.setIp(address);
+    public jmp(high: uint8, low: uint8): void {
+      console.log("Jumping to", high, low);
+      this.setIp(high, low);
     }
 
-    public jif(address: uint16): void {
+    public jif(high: uint8, low: uint8): void {
       if (this.registers.FLAGS) {
-        this.setIp(address);
+        console.log("Conditional Flag Jumping to", high, low);
+        this.setIp(high, low);
       }
     }
 
-    public jeq(address: uint16): void {
+    public jeq(high: uint8, low: uint8): void {
       if (this.registers.A === this.registers.B) {
-        this.setIp(address);
+        this.setIp(high, low);
       }
     }
 
-    public jne(address: uint16): void {
+    public jne(high: uint8, low: uint8): void {
       if (this.registers.A !== this.registers.B) {
-        this.setIp(address);
+        this.setIp(high, low);
       }
     }
 
-    public jgt(address: uint16): void {
+    public jgt(high: uint8, low: uint8): void {
       if (this.registers.A > this.registers.B) {
-        this.setIp(address);
+        this.setIp(high, low);
       }
     }
 
-    public jlt(address: uint16): void {
+    public jlt(high: uint8, low: uint8): void {
       if (this.registers.A < this.registers.B) {
-        this.setIp(address);
+        this.setIp(high, low);
       }
     }
 
-    private setIp(address: uint16): void {
-      this.registers.IPH = ((address & 0xff00) >> 8) as uint8;
-      this.registers.IPL = (address & 0x00ff) as uint8;
+    private setIp(high: uint8, low: uint8): void {
+      this.registers.IPH = high;
+      this.registers.IPL = low;
     }
   };
 }

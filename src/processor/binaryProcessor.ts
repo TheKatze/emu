@@ -39,15 +39,13 @@ class Processor extends ProcessorBase {
         }
       );
 
-      console.log(instruction.assemblyName);
       // deno-lint-ignore no-explicit-any
       (this as any)[instruction.assemblyName](...parameters);
 
-      // dont increment ip if jumped
+      // skip incrementing the instruction pointer after a jump
       if (this.registers.FLAGS & Flags.HasJumped) {
         this.registers.FLAGS = (this.registers.FLAGS &
-          ~Flags.HasJumped &
-          0xff) as uint8;
+          ~Flags.HasJumped) as uint8;
 
         continue;
       }

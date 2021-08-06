@@ -1,5 +1,5 @@
 import Memory from "../memory.ts";
-import { Register, uint8 } from "../types.ts";
+import { Register, uint8 } from "../../types.ts";
 
 // deno-lint-ignore no-explicit-any
 export type Processor = new (...args: any[]) => {

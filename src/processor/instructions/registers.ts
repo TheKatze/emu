@@ -1,4 +1,4 @@
-import { uint8 } from "../types.ts";
+import { uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function RegisterProcessor<TProcessor extends Processor>(
@@ -26,6 +26,10 @@ export default function RegisterProcessor<TProcessor extends Processor>(
 
     public ldb(value: uint8): void {
       this.registers.B = value;
+    }
+
+    public clf(): void {
+      this.registers.FLAGS = 0b0000_0000;
     }
   };
 }

@@ -1,25 +1,22 @@
-import Memory from "./memory.ts";
-import { Register, uint8 } from "./types.ts";
 import ArithmeticProcessor from "./instructions/arithmetic.ts";
 import BitwiseProcessor from "./instructions/bitwise.ts";
+import ConditionalProcessor from "./instructions/conditional.ts";
 import RegisterProcessor from "./instructions/registers.ts";
 import MemoryProcessor from "./instructions/memory.ts";
-import ConditionalProcessor from "./instructions/conditional.ts";
 
-class ProcessorBase {
-  public registers: { [id in Register]: uint8 } = {
-    A: 0b0000_0000,
-    B: 0b0000_0000,
-    R: 0b0000_0000,
-    IP: 0b0000_0000,
-    FLAGS: 0b0000_0000,
-  };
+import { uint8 } from "../types.ts";
+import ProcessorBase from "./processorBase.ts";
 
-  public memory = new Memory();
+class Processor extends ProcessorBase {
+  constructor(memoryFile: string) {
+    super(Array.from(Deno.readFileSync(memoryFile)) as uint8[]);
+  }
+
+  public run(): void {}
 }
 
 // conditionals
-export default ConditionalProcessor(
+export const BinaryProcessor = ConditionalProcessor(
   // memory access
   MemoryProcessor(
     // register operations
@@ -27,7 +24,7 @@ export default ConditionalProcessor(
       // bitwise operations
       BitwiseProcessor(
         // arithmetic operations
-        ArithmeticProcessor(ProcessorBase)
+        ArithmeticProcessor(Processor)
       )
     )
   )

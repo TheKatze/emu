@@ -1,4 +1,4 @@
-import { Flags, uint8 } from "../types.ts";
+import { Flags, uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function ArithmeticProcessor<TProcessor extends Processor>(

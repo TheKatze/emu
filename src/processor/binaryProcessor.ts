@@ -4,15 +4,47 @@ import ConditionalProcessor from "./instructions/conditional.ts";
 import RegisterProcessor from "./instructions/registers.ts";
 import MemoryProcessor from "./instructions/memory.ts";
 
-import { uint8 } from "../types.ts";
+import { uint16, uint8 } from "../types.ts";
 import ProcessorBase from "./processorBase.ts";
+import MiscProcessor from "./instructions/misc.ts";
+import { Instruction, Instructions } from "./instructions/instructions.ts";
+
+const BinaryInstructions: { [id: number]: Instruction } = Instructions.reduce(
+  (all, instruction) => ({
+    ...all,
+    [instruction.binary]: instruction,
+  }),
+  {}
+);
 
 class Processor extends ProcessorBase {
   constructor(memoryFile: string) {
     super(Array.from(Deno.readFileSync(memoryFile)) as uint8[]);
   }
 
-  public run(): void {}
+  public run(): void {
+    while (!this.shouldHalt) {
+      const binaryInstruction = this.memory.load(
+        this.registers.IPH,
+        this.registers.IPL
+      );
+      const instruction = BinaryInstructions[binaryInstruction];
+
+      const parameters = [...Array(instruction.paramCount).keys()].map(
+        (index) => {
+          const increments = this.splitInt(
+            (this.registers.IPL + (index + 1)) as uint16
+          );
+          return this.memory.load(increments.high, increments.low);
+        }
+      );
+
+      // deno-lint-ignore no-explicit-any
+      (this as any)[instruction.assemblyName](...parameters);
+
+      this.incrementInstructionPointer(instruction.paramCount);
+    }
+  }
 }
 
 // conditionals
@@ -24,7 +56,10 @@ export const BinaryProcessor = ConditionalProcessor(
       // bitwise operations
       BitwiseProcessor(
         // arithmetic operations
-        ArithmeticProcessor(Processor)
+        ArithmeticProcessor(
+          // sundry
+          MiscProcessor(Processor)
+        )
       )
     )
   )

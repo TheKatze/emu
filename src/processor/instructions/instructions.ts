@@ -6,7 +6,10 @@ export interface Instruction {
   paramCount: 0 | 1 | 2;
 }
 
-const Instructions: Instruction[] = [
+export const Instructions: Instruction[] = [
+  // Misc
+  { assemblyName: "noop", binary: 0b0000_0000, paramCount: 0 },
+  { assemblyName: "hlt", binary: 0b1111_1111, paramCount: 0 },
   // Arithmetic
   { assemblyName: "add", binary: 0b0000_0100, paramCount: 0 },
   { assemblyName: "sub", binary: 0b0000_0101, paramCount: 0 },
@@ -14,11 +17,11 @@ const Instructions: Instruction[] = [
   { assemblyName: "div", binary: 0b0000_0111, paramCount: 0 },
   // Bitwise
   { assemblyName: "not", binary: 0b0000_1000, paramCount: 0 },
-  { assemblyName: "and", binary: 0b0000_1000, paramCount: 0 },
-  { assemblyName: "xor", binary: 0b0000_1000, paramCount: 0 },
-  { assemblyName: "or", binary: 0b0000_1000, paramCount: 0 },
-  { assemblyName: "shl", binary: 0b0000_1000, paramCount: 0 },
-  { assemblyName: "shr", binary: 0b0000_1000, paramCount: 0 },
+  { assemblyName: "and", binary: 0b0000_1001, paramCount: 0 },
+  { assemblyName: "xor", binary: 0b0000_1010, paramCount: 0 },
+  { assemblyName: "or", binary: 0b0000_1011, paramCount: 0 },
+  { assemblyName: "shl", binary: 0b0000_1100, paramCount: 0 },
+  { assemblyName: "shr", binary: 0b0000_1101, paramCount: 0 },
   // Conditional
   { assemblyName: "jmp", binary: 0b1100_0000, paramCount: 2 },
   { assemblyName: "jif", binary: 0b1100_0001, paramCount: 2 },
@@ -37,21 +40,3 @@ const Instructions: Instruction[] = [
   { assemblyName: "rtb", binary: 0b0010_0010, paramCount: 0 },
   { assemblyName: "clf", binary: 0b0010_0011, paramCount: 0 },
 ];
-
-export const BinaryInstructions: { [id: number]: Instruction } =
-  Instructions.reduce(
-    (all, instruction) => ({
-      ...all,
-      [instruction.binary]: instruction,
-    }),
-    {}
-  );
-
-export const AssemblyInstructions: { [id: string]: Instruction } =
-  Instructions.reduce(
-    (all, instruction) => ({
-      ...all,
-      [instruction.assemblyName]: instruction,
-    }),
-    {}
-  );

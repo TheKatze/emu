@@ -5,4 +5,6 @@ import { Register, uint8 } from "../../types.ts";
 export type Processor = new (...args: any[]) => {
   get registers(): { [id in Register]: uint8 };
   get memory(): Memory;
+
+  shouldHalt: boolean;
 };

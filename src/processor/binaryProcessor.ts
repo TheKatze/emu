@@ -4,7 +4,7 @@ import ConditionalProcessor from "./instructions/conditional.ts";
 import RegisterProcessor from "./instructions/registers.ts";
 import MemoryProcessor from "./instructions/memory.ts";
 
-import { uint16, uint8 } from "../types.ts";
+import { Flags, uint16, uint8 } from "../types.ts";
 import ProcessorBase from "./processorBase.ts";
 import MiscProcessor from "./instructions/misc.ts";
 import { Instruction, Instructions } from "./instructions/instructions.ts";
@@ -43,6 +43,14 @@ class Processor extends ProcessorBase {
       // deno-lint-ignore no-explicit-any
       (this as any)[instruction.assemblyName](...parameters);
 
+      // dont increment ip if jumped
+      if (this.registers.FLAGS & Flags.HasJumped) {
+        this.registers.FLAGS = (this.registers.FLAGS &
+          ~Flags.HasJumped &
+          0xff) as uint8;
+
+        continue;
+      }
       this.incrementInstructionPointer(instruction.paramCount);
     }
   }

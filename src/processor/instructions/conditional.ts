@@ -1,4 +1,4 @@
-import { uint16, uint8 } from "../../types.ts";
+import { Flags, uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function ConditionalProcessor<TProcessor extends Processor>(
@@ -44,6 +44,8 @@ export default function ConditionalProcessor<TProcessor extends Processor>(
     private setIp(high: uint8, low: uint8): void {
       this.registers.IPH = high;
       this.registers.IPL = low;
+
+      this.registers.FLAGS = (this.registers.FLAGS | Flags.HasJumped) as uint8;
     }
   };
 }

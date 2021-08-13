@@ -4,7 +4,7 @@ import ConditionalProcessor from "./instructions/conditional.ts";
 import RegisterProcessor from "./instructions/registers.ts";
 import MemoryProcessor from "./instructions/memory.ts";
 
-import { Flags, uint16, uint8 } from "../types.ts";
+import { Flags, uint8 } from "../types.ts";
 import ProcessorBase from "./processorBase.ts";
 import MiscProcessor from "./instructions/misc.ts";
 import { Instruction, Instructions } from "./instructions/instructions.ts";
@@ -32,9 +32,7 @@ class Processor extends ProcessorBase {
 
       const parameters = [...Array(instruction.paramCount).keys()].map(
         (index) => {
-          const increments = this.splitInt(
-            (this.registers.IPL + (index + 1)) as uint16
-          );
+          const increments = this.splitInt(this.registers.IPL + (index + 1));
           return this.memory.load(increments.high, increments.low);
         }
       );

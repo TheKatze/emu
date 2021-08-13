@@ -1,5 +1,5 @@
 import Memory from "./memory.ts";
-import { Register, uint16, uint8 } from "../types.ts";
+import { Register, uint8 } from "../types.ts";
 
 abstract class ProcessorBase {
   constructor(memory: uint8[]) {
@@ -22,15 +22,13 @@ abstract class ProcessorBase {
   protected incrementInstructionPointer(lastParamCount: 0 | 1 | 2) {
     const increment = lastParamCount + 1;
 
-    const increments = this.splitInt(
-      (this.registers.IPL + increment) as uint16
-    );
+    const increments = this.splitInt(this.registers.IPL + increment);
 
     this.registers.IPL = increments.low;
     this.registers.IPH += increments.high;
   }
 
-  protected splitInt(value: uint16): { high: uint8; low: uint8 } {
+  protected splitInt(value: number): { high: uint8; low: uint8 } {
     const high = ((value & 0xff00) >> 8) as uint8;
     const low = (value & 0x00ff) as uint8;
     return { high, low };

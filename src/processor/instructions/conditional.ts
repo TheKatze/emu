@@ -6,13 +6,11 @@ export default function ConditionalProcessor<TProcessor extends Processor>(
 ) {
   return class ConditionalProcessor extends Base {
     public jmp(high: uint8, low: uint8): void {
-      console.log("Jumping to", high, low);
       this.setIp(high, low);
     }
 
     public jif(high: uint8, low: uint8): void {
       if (this.registers.FLAGS) {
-        console.log("Conditional Flag Jumping to", high, low);
         this.setIp(high, low);
       }
     }

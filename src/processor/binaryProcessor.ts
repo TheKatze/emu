@@ -14,7 +14,7 @@ const BinaryInstructions: { [id: number]: Instruction } = Instructions.reduce(
     ...all,
     [instruction.binary]: instruction,
   }),
-  {}
+  {},
 );
 
 class Processor extends ProcessorBase {
@@ -26,7 +26,7 @@ class Processor extends ProcessorBase {
     while (!this.shouldHalt) {
       const binaryInstruction = this.memory.load(
         this.registers.IPH,
-        this.registers.IPL
+        this.registers.IPL,
       );
       const instruction = BinaryInstructions[binaryInstruction];
 
@@ -34,7 +34,7 @@ class Processor extends ProcessorBase {
         (index) => {
           const increments = this.splitInt(this.registers.IPL + (index + 1));
           return this.memory.load(increments.high, increments.low);
-        }
+        },
       );
 
       // deno-lint-ignore no-explicit-any
@@ -63,9 +63,9 @@ export const BinaryProcessor = ConditionalProcessor(
         // arithmetic operations
         ArithmeticProcessor(
           // sundry
-          MiscProcessor(Processor)
-        )
-      )
-    )
-  )
+          MiscProcessor(Processor),
+        ),
+      ),
+    ),
+  ),
 );

@@ -2,7 +2,7 @@ import { Flags, uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function ArithmeticProcessor<TProcessor extends Processor>(
-  Base: TProcessor
+  Base: TProcessor,
 ) {
   return class ArithmeticProcessor extends Base {
     public add(): void {

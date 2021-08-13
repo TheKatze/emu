@@ -2,7 +2,7 @@ import { Flags, uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function ConditionalProcessor<TProcessor extends Processor>(
-  Base: TProcessor
+  Base: TProcessor,
 ) {
   return class ConditionalProcessor extends Base {
     public jmp(high: uint8, low: uint8): void {

@@ -2,7 +2,7 @@ import { uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function BitwiseProcessor<TProcessor extends Processor>(
-  Base: TProcessor
+  Base: TProcessor,
 ) {
   return class BitwiseProcessor extends Base {
     public not(): void {

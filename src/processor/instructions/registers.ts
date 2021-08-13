@@ -2,7 +2,7 @@ import { uint8 } from "../../types.ts";
 import { Processor } from "./processorType.ts";
 
 export default function RegisterProcessor<TProcessor extends Processor>(
-  Base: TProcessor
+  Base: TProcessor,
 ) {
   return class RegisterProcessor extends Base {
     public swp(): void {

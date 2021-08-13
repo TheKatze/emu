@@ -1,7 +1,7 @@
 import { Processor } from "./processorType.ts";
 
 export default function MemoryAccessingProcessor<TProcessor extends Processor>(
-  Base: TProcessor
+  Base: TProcessor,
 ) {
   return class MemoryAccessingProcessor extends Base {
     /// Save R to memory location AB

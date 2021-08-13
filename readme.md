@@ -10,7 +10,7 @@ my own little processor emulator of my own little processor architecture
 
 ## Its actually quite cool
 
-According to all my friends this actually is quite a fun little project  
+According to all my friends this actually is quite a fun little project\
 Why use x86 if you can use this piece of garbage?
 
 Well at least i have nicer assembly syntax :^)

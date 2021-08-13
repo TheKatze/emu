@@ -1,10 +1,9 @@
+<h1 align="center">emu</h1>
 <p align="center">
-# emu
-
 my own little processor emulator of my own little processor architecture
-
-[![](https://img.shields.io/codecov/c/gh/thekatze/emu>?style=flat-square&token=26SPB0CIP3)](https://codecov.io/gh/thekatze/emu)
-
+</p>
+<p align="center">
+[![](https://img.shields.io/codecov/c/gh/thekatze/emu?style=flat-square&token=26SPB0CIP3)](https://codecov.io/gh/thekatze/emu)
 </p>
 
 ## Its actually quite cool

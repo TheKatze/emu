@@ -1,8 +1,8 @@
-import { assertEquals } from "https://deno.land/std@0.104.0/testing/asserts.ts";
+import { assertEquals } from "../deps.ts";
 
 import TestProcessor from "./base/testProcessor.ts";
-import ArithmeticProcessor from "../src/processor/instructions/arithmetic.ts";
-import { Flags } from "../src/types.ts";
+import ArithmeticProcessor from "../../src/processor/instructions/arithmetic.ts";
+import { Flags } from "../../src/types.ts";
 
 const Processor = ArithmeticProcessor(TestProcessor);
 

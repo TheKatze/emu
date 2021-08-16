@@ -1,4 +1,4 @@
-import ProcessorBase from "../../src/processor/processorBase.ts";
+import ProcessorBase from "../../../src/processor/processorBase.ts";
 
 export default class TestProcessor extends ProcessorBase {
   constructor() {

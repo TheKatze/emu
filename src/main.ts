@@ -1,7 +1,7 @@
-import { BinaryProcessor as Processor } from "./processor/binaryProcessor.ts";
+import Compiler from "./compiler/compiler.ts";
 
-const processor = new Processor("empty.bin");
+const program = ["lda 1", "add", "jif 0 11", "swp", "rta", "jmp 0 2", "hlt"];
 
-processor.run();
+const compiler = new Compiler(program.join("\n"));
 
-console.table(processor.registers);
+console.log(compiler.compile());
